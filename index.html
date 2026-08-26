@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FORGE. | Premium Shopping in Ghana</title>
+
+    <meta name="description"
+          content="FORGE. — Quality products, better shopping. Discover electronics, fashion, accessories and more in Ghana.">
+
+    <link rel="stylesheet"
+          href="css/style.css">
+
+    <!-- Google Font -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<header class="forge-header">
+
+    <div class="forge-nav">
+
+        <a href="index.html"
+           class="forge-logo">
+
+            FORGE<span>.</span>
+
+        </a>
+
+
+        <nav class="forge-links">
+
+            <a href="index.html"
+               class="active">
+                Home
+            </a>
+
+            <a href="products.html">
+                Shop
+            </a>
+
+            <a href="#categories">
+                Categories
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+            <a href="#contact">
+                Contact
+            </a>
+
+        </nav>
+
+
+        <div class="forge-actions">
+
+            <button class="icon-button"
+                    onclick="openSearch()"
+                    aria-label="Search">
+
+                🔍
+
+            </button>
+
+
+            <a href="cart.html"
+               class="cart-icon">
+
+                🛒
+
+                <span id="cart-count">
+                    0
+                </span>
+
+            </a>
+
+
+            <button class="icon-button menu-toggle"
+                    onclick="toggleMenu()"
+                    aria-label="Menu">
+
+                ☰
+
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MOBILE MENU
+===================================================== -->
+
+<div class="forge-mobile-menu"
+     id="mobile-menu">
+
+    <a href="index.html">
+        Home
+    </a>
+
+    <a href="products.html">
+        Shop
+    </a>
+
+    <a href="#categories">
+        Categories
+    </a>
+
+    <a href="#about">
+        About
+    </a>
+
+    <a href="#contact">
+        Contact
+    </a>
+
+</div>
+
+
+
+<!-- =====================================================
+     SEARCH
+===================================================== -->
+
+<div class="forge-search"
+     id="search-overlay">
+
+    <div class="forge-search-box">
+
+        <button class="search-close"
+                onclick="closeSearch()">
+
+            ✕
+
+        </button>
+
+        <p class="orange-label">
+            FORGE STORE
+        </p>
+
+        <h2>
+            What are you looking for?
+        </h2>
+
+        <input
+            type="text"
+            id="search-input"
+            placeholder="Search products...">
+
+        <a href="products.html"
+           class="orange-button">
+
+            Search Store →
+
+        </a>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="forge-hero">
+
+    <div class="hero-glow glow-one"></div>
+
+    <div class="hero-glow glow-two"></div>
+
+
+    <div class="hero-content">
+
+        <div class="hero-copy">
+
+            <div class="hero-tag">
+
+                <span></span>
+
+                QUALITY SHOPPING IN GHANA
+
+            </div>
+
+
+            <h1>
+
+                Shop smarter.<br>
+
+                <span>Live better.</span>
+
+            </h1>
+
+
+            <p>
+
+                Discover quality products, modern style
+                and everyday essentials — all in one place.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a href="products.html"
+                   class="hero-primary">
+
+                    Shop Now
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+
+                <a href="#categories"
+                   class="hero-secondary">
+
+                    Explore Categories
+
+                </a>
+
+            </div>
+
+
+            <div class="hero-stats">
+
+                <div>
+
+                    <strong>
+                        100+
+                    </strong>
+
+                    <span>
+                        Products
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        4.9★
+                    </strong>
+
+                    <span>
+                        Customer Rating
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Ghana
+                    </strong>
+
+                    <span>
+                        Delivery
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- HERO PRODUCT DISPLAY -->
+
+        <div class="hero-products">
+
+            <div class="hero-circle"></div>
+
+
+            <div class="floating-product product-one">
+
+                <div class="fake-product-image headphones">
+                    🎧
+                </div>
+
+            </div>
+
+
+            <div class="floating-product product-two">
+
+                <div class="fake-product-image watch">
+                    ⌚
+                </div>
+
+            </div>
+
+
+            <div class="floating-product product-three">
+
+                <div class="fake-product-image sneaker">
+                    👟
+                </div>
+
+            </div>
+
+
+            <div class="hero-badge">
+
+                <span>
+                    ✦
+                </span>
+
+                <div>
+
+                    <strong>
+                        FORGE.
+                    </strong>
+
+                    <small>
+                        Premium Picks
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     TRUST BAR
+===================================================== -->
+
+<section class="trust-bar">
+
+    <div class="trust-container">
+
+
+        <div class="trust-item">
+
+            <div class="trust-icon">
+                🚚
+            </div>
+
+            <div>
+
+                <strong>
+                    Fast Delivery
+                </strong>
+
+                <span>
+                    Delivered to your doorstep
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="trust-item">
+
+            <div class="trust-icon">
+                🔒
+            </div>
+
+            <div>
+
+                <strong>
+                    Secure Shopping
+                </strong>
+
+                <span>
+                    Safe & protected checkout
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="trust-item">
+
+            <div class="trust-icon">
+                ↻
+            </div>
+
+            <div>
+
+                <strong>
+                    Easy Returns
+                </strong>
+
+                <span>
+                    Shop with confidence
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="trust-item">
+
+            <div class="trust-icon">
+                💬
+            </div>
+
+            <div>
+
+                <strong>
+                    24/7 Support
+                </strong>
+
+                <span>
+                    We're here to help
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CATEGORIES
+===================================================== -->
+
+<section class="forge-section"
+         id="categories">
+
+    <div class="section-top">
+
+        <div>
+
+            <p class="orange-label">
+                EXPLORE
+            </p>
+
+            <h2>
+                Shop by category
+            </h2>
+
+            <p class="section-description">
+                Find everything you need in one place.
+            </p>
+
+        </div>
+
+
+        <a href="products.html"
+           class="view-link">
+
+            View All →
+
+        </a>
+
+    </div>
+
+
+    <div class="category-cards">
+
+
+        <a href="products.html?category=electronics"
+           class="forge-category electronics-category">
+
+            <div class="category-number">
+                01
+            </div>
+
+            <div class="category-emoji">
+                🎧
+            </div>
+
+            <div class="category-content">
+
+                <h3>
+                    Electronics
+                </h3>
+
+                <p>
+                    Tech & accessories
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <a href="products.html?category=fashion"
+           class="forge-category fashion-category">
+
+            <div class="category-number">
+                02
+            </div>
+
+            <div class="category-emoji">
+                👕
+            </div>
+
+            <div class="category-content">
+
+                <h3>
+                    Fashion
+                </h3>
+
+                <p>
+                    Style & clothing
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <a href="products.html?category=home"
+           class="forge-category home-category">
+
+            <div class="category-number">
+                03
+            </div>
+
+            <div class="category-emoji">
+                🏠
+            </div>
+
+            <div class="category-content">
+
+                <h3>
+                    Home
+                </h3>
+
+                <p>
+                    Home essentials
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <a href="products.html?category=accessories"
+           class="forge-category accessories-category">
+
+            <div class="category-number">
+                04
+            </div>
+
+            <div class="category-emoji">
+                🎒
+            </div>
+
+            <div class="category-content">
+
+                <h3>
+                    Accessories
+                </h3>
+
+                <p>
+                    Everyday essentials
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                →
+            </span>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FEATURED PRODUCTS
+===================================================== -->
+
+<section class="forge-section products-area">
+
+    <div class="section-top">
+
+        <div>
+
+            <p class="orange-label">
+                TRENDING NOW
+            </p>
+
+            <h2>
+                Featured products
+            </h2>
+
+            <p class="section-description">
+                Hand-picked products worth checking out.
+            </p>
+
+        </div>
+
+
+        <a href="products.html"
+           class="view-link">
+
+            Shop All →
+
+        </a>
+
+    </div>
+
+
+    <div class="forge-products-grid">
+
+
+        <!-- PRODUCT 1 -->
+
+        <article class="forge-product">
+
+            <div class="product-visual">
+
+                <span class="product-tag">
+                    NEW
+                </span>
+
+                <div class="product-art">
+                    🎧
+                </div>
+
+                <button
+                    onclick="addToCart('Wireless Headphones', 250)"
+                    class="quick-add">
+
+                    +
+
+                </button>
+
+            </div>
+
+
+            <div class="product-details">
+
+                <span>
+                    Electronics
+                </span>
+
+                <h3>
+                    Wireless Headphones
+                </h3>
+
+
+                <div class="product-price">
+
+                    <strong>
+                        GH₵ 250
+                    </strong>
+
+                    <div class="stars">
+                        ★★★★★
+                    </div>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- PRODUCT 2 -->
+
+        <article class="forge-product">
+
+            <div class="product-visual">
+
+                <span class="product-tag">
+                    POPULAR
+                </span>
+
+                <div class="product-art">
+                    ⌚
+                </div>
+
+                <button
+                    onclick="addToCart('Smart Watch', 320)"
+                    class="quick-add">
+
+                    +
+
+                </button>
+
+            </div>
+
+
+            <div class="product-details">
+
+                <span>
+                    Electronics
+                </span>
+
+                <h3>
+                    Smart Watch
+                </h3>
+
+
+                <div class="product-price">
+
+                    <strong>
+                        GH₵ 320
+                    </strong>
+
+                    <div class="stars">
+                        ★★★★★
+                    </div>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- PRODUCT 3 -->
+
+        <article class="forge-product">
+
+            <div class="product-visual">
+
+                <span class="product-tag">
+                    BEST SELLER
+                </span>
+
+                <div class="product-art">
+                    👟
+                </div>
+
+                <button
+                    onclick="addToCart('Premium Sneakers', 450)"
+                    class="quick-add">
+
+                    +
+
+                </button>
+
+            </div>
+
+
+            <div class="product-details">
+
+                <span>
+                    Fashion
+                </span>
+
+                <h3>
+                    Premium Sneakers
+                </h3>
+
+
+                <div class="product-price">
+
+                    <strong>
+                        GH₵ 450
+                    </strong>
+
+                    <div class="stars">
+                        ★★★★★
+                    </div>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- PRODUCT 4 -->
+
+        <article class="forge-product">
+
+            <div class="product-visual">
+
+                <span class="product-tag">
+                    NEW
+                </span>
+
+                <div class="product-art">
+                    🎒
+                </div>
+
+                <button
+                    onclick="addToCart('Everyday Backpack', 180)"
+                    class="quick-add">
+
+                    +
+
+                </button>
+
+            </div>
+
+
+            <div class="product-details">
+
+                <span>
+                    Accessories
+                </span>
+
+                <h3>
+                    Everyday Backpack
+                </h3>
+
+
+                <div class="product-price">
+
+                    <strong>
+                        GH₵ 180
+                    </strong>
+
+                    <div class="stars">
+                        ★★★★★
+                    </div>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PREMIUM CTA
+===================================================== -->
+
+<section class="forge-cta">
+
+    <div class="cta-glow"></div>
+
+
+    <div class="cta-content">
+
+        <p class="orange-label">
+            FORGE STORE
+        </p>
+
+        <h2>
+            Quality products.<br>
+            <span>Better shopping.</span>
+        </h2>
+
+        <p>
+            Everything you need. Nothing you don't.
+        </p>
+
+
+        <a href="products.html"
+           class="hero-primary">
+
+            Start Shopping
+
+            <span>
+                →
+            </span>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section class="forge-about"
+         id="about">
+
+    <div class="about-grid">
+
+
+        <div class="about-heading">
+
+            <p class="orange-label">
+                ABOUT FORGE
+            </p>
+
+            <h2>
+                Built for a better
+                <span>way to shop.</span>
+            </h2>
+
+        </div>
+
+
+        <div class="about-text">
+
+            <p>
+
+                FORGE. is an online shopping platform
+                focused on bringing quality products,
+                modern style and convenient shopping
+                together.
+
+            </p>
+
+
+            <p>
+
+                We're building a shopping experience
+                designed for customers in Ghana and
+                beyond.
+
+            </p>
+
+
+            <div class="about-points">
+
+                <div>
+                    <span>✓</span>
+                    Quality products
+                </div>
+
+                <div>
+                    <span>✓</span>
+                    Secure checkout
+                </div>
+
+                <div>
+                    <span>✓</span>
+                    Convenient delivery
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CONTACT
+===================================================== -->
+
+<section class="contact-strip"
+         id="contact">
+
+    <div>
+
+        <p class="orange-label">
+            NEED HELP?
+        </p>
+
+        <h2>
+            We're here for you.
+        </h2>
+
+        <p>
+            Have a question about an order?
+            Get in touch with Forge.
+        </p>
+
+    </div>
+
+
+    <a href="mailto:forgestoreghana@gmail.com"
+       class="hero-secondary">
+
+        Contact Us →
+
+    </a>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="forge-footer">
+
+    <div class="footer-grid">
+
+
+        <div class="footer-brand">
+
+            <a href="index.html"
+               class="forge-logo">
+
+                FORGE<span>.</span>
+
+            </a>
+
+            <p>
+                Quality products.<br>
+                Built for the culture.
+            </p>
+
+
+            <div class="socials">
+
+                <a href="#">
+                    IG
+                </a>
+
+                <a href="#">
+                    X
+                </a>
+
+                <a href="#">
+                    f
+                </a>
+
+                <a href="#">
+                    TT
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>
+                Shop
+            </h4>
+
+            <a href="products.html">
+                All Products
+            </a>
+
+            <a href="#categories">
+                Categories
+            </a>
+
+            <a href="products.html">
+                New Arrivals
+            </a>
+
+            <a href="products.html">
+                Best Sellers
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>
+                Company
+            </h4>
+
+            <a href="#about">
+                About Us
+            </a>
+
+            <a href="#contact">
+                Contact Us
+            </a>
+
+            <a href="#">
+                FAQs
+            </a>
+
+            <a href="#">
+                Privacy Policy
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>
+                Help
+            </h4>
+
+            <a href="#">
+                Delivery Info
+            </a>
+
+            <a href="#">
+                Returns
+            </a>
+
+            <a href="#">
+                Size Guide
+            </a>
+
+            <a href="#">
+                Track Order
+            </a>
+
+        </div>
+
+
+        <div class="footer-newsletter">
+
+            <h4>
+                Stay Updated
+            </h4>
+
+            <p>
+                Subscribe to get special offers.
+            </p>
+
+
+            <form
+                onsubmit="subscribeNewsletter(event)">
+
+                <input
+                    type="email"
+                    placeholder="Enter your email"
+                    required>
+
+                <button type="submit">
+                    →
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <span>
+            © 2026 Forge Store. All rights reserved.
+        </span>
+
+        <span>
+            Made with 🧡 in Ghana
+        </span>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =========================================
+   MOBILE MENU
+========================================= */
+
+function toggleMenu() {
+
+    const menu =
+        document.getElementById(
+            "mobile-menu"
+        );
+
+    menu.classList.toggle("show");
+
+}
+
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+function openSearch() {
+
+    const overlay =
+        document.getElementById(
+            "search-overlay"
+        );
+
+    overlay.classList.add("show");
+
+
+    document
+        .getElementById("search-input")
+        .focus();
+
+}
+
+
+function closeSearch() {
+
+    document
+        .getElementById("search-overlay")
+        .classList.remove("show");
+
+}
+
+
+
+/* =========================================
+   CART
+========================================= */
+
+function addToCart(name, price) {
+
+    let cart =
+        JSON.parse(
+            localStorage.getItem(
+                "forgeCart"
+            )
+        ) || [];
+
+
+    cart.push({
+
+        name: name,
+
+        price: price
+
+    });
+
+
+    localStorage.setItem(
+        "forgeCart",
+        JSON.stringify(cart)
+    );
+
+
+    updateCartCount();
+
+
+    showCartNotification(
+        name
+    );
+
+}
+
+
+
+/* =========================================
+   CART COUNT
+========================================= */
+
+function updateCartCount() {
+
+    let cart =
+        JSON.parse(
+            localStorage.getItem(
+                "forgeCart"
+            )
+        ) || [];
+
+
+    const count =
+        document.getElementById(
+            "cart-count"
+        );
+
+
+    if (count) {
+
+        count.textContent =
+            cart.length;
+
+    }
+
+}
+
+
+
+/* =========================================
+   CART NOTIFICATION
+========================================= */
+
+function showCartNotification(name) {
+
+    const old =
+        document.querySelector(
+            ".cart-notification"
+        );
+
+
+    if (old) {
+
+        old.remove();
+
+    }
+
+
+    const notification =
+        document.createElement(
+            "div"
+        );
+
+
+    notification.className =
+        "cart-notification";
+
+
+    notification.innerHTML = `
+
+        <div class="notification-icon">
+            ✓
+        </div>
+
+        <div>
+
+            <strong>
+                Added to cart
+            </strong>
+
+            <span>
+                ${name}
+            </span>
+
+        </div>
+
+    `;
+
+
+    document.body.appendChild(
+        notification
+    );
+
+
+    setTimeout(
+        function() {
+
+            notification.classList.add(
+                "hide"
+            );
+
+            setTimeout(
+                function() {
+
+                    notification.remove();
+
+                },
+                300
+            );
+
+        },
+        2500
+    );
+
+}
+
+
+
+/* =========================================
+   NEWSLETTER
+========================================= */
+
+function subscribeNewsletter(event) {
+
+    event.preventDefault();
+
+
+    alert(
+        "Thanks for subscribing to Forge! 🧡"
+    );
+
+
+    event.target.reset();
+
+}
+
+
+
+/* =========================================
+   ESCAPE KEY
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeSearch();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================
+   INITIALIZE
+========================================= */
+
+updateCartCount();
+
+</script>
+
+
+</body>
+
+</html>

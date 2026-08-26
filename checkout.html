@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout | Forge Store</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Paystack InlineJS V2 -->
+    <script src="https://js.paystack.co/v2/inline.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            background: #080808;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
+        .checkout-page {
+            min-height: 100vh;
+            padding: 80px 20px;
+        }
+
+        .checkout-container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .heading {
+            margin-bottom: 35px;
+        }
+
+        .heading small {
+            color: #ff5a1f;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .heading h1 {
+            font-size: 55px;
+            margin: 10px 0;
+        }
+
+        .heading p {
+            color: #888;
+        }
+
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 25px;
+        }
+
+        .card,
+        .summary {
+            background: #111;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 20px;
+            padding: 28px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .number {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255,90,31,.15);
+            color: #ff5a1f;
+            font-weight: bold;
+        }
+
+        .title h2,
+        .summary h2 {
+            margin: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 17px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .field label {
+            color: #aaa;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,.08);
+            background: #181818;
+            color: #fff;
+            outline: none;
+        }
+
+        .field textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+            border-color: #ff5a1f;
+        }
+
+        .payment {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #181818;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .payment-icon {
+            font-size: 25px;
+        }
+
+        .payment strong {
+            display: block;
+        }
+
+        .payment span {
+            display: block;
+            color: #777;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .items {
+            margin-top: 20px;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 13px 0;
+            border-bottom: 1px solid rgba(255,255,255,.07);
+        }
+
+        .item-name {
+            color: #aaa;
+            font-size: 13px;
+        }
+
+        .item-price {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 22px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,.1);
+        }
+
+        .total span {
+            color: #888;
+        }
+
+        .total strong {
+            font-size: 21px;
+        }
+
+        .pay-button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 17px;
+            border: none;
+            border-radius: 11px;
+            background: #ff5a1f;
+            color: white;
+            font-weight: 900;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .pay-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255,90,31,.25);
+        }
+
+        .pay-button:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        .secure {
+            text-align: center;
+            color: #666;
+            font-size: 10px;
+            margin-top: 14px;
+        }
+
+        .empty {
+            display: none;
+            text-align: center;
+            background: #111;
+            padding: 60px 20px;
+            border-radius: 20px;
+        }
+
+        .empty a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 13px 20px;
+            background: #ff5a1f;
+            color: white;
+            text-decoration: none;
+            border-radius: 9px;
+        }
+
+        @media (max-width: 800px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+
+            .heading h1 {
+                font-size: 45px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<main class="checkout-page">
+
+    <div class="checkout-container">
+
+        <div class="heading">
+            <small>FORGE STORE</small>
+
+            <h1>Checkout.</h1>
+
+            <p>
+                Complete your delivery details and pay securely.
+            </p>
+        </div>
+
+
+        <!-- EMPTY CART -->
+
+        <div class="empty" id="empty-cart">
+
+            <h2>Your cart is empty 🛒</h2>
+
+            <p>
+                Add products before checking out.
+            </p>
+
+            <a href="products.html">
+                Start Shopping →
+            </a>
+
+        </div>
+
+
+        <!-- CHECKOUT -->
+
+        <div class="checkout-grid" id="checkout-grid">
+
+
+            <!-- LEFT -->
+
+            <div>
+
+                <!-- DELIVERY -->
+
+                <section class="card">
+
+                    <div class="title">
+
+                        <div class="number">
+                            1
+                        </div>
+
+                        <h2>
+                            Delivery Details
+                        </h2>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <div class="field">
+
+                            <label>
+                                FULL NAME
+                            </label>
+
+                            <input
+                                type="text"
+                                id="full-name"
+                                placeholder="Kwame Mensah">
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>
+                                EMAIL
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="you@example.com">
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>
+                                PHONE
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                placeholder="024 XXX XXXX">
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>
+                                REGION
+                            </label>
+
+                            <select id="region">
+
+                                <option value="">
+                                    Select region
+                                </option>
+
+                                <option>
+                                    Greater Accra
+                                </option>
+
+                                <option>
+                                    Ashanti
+                                </option>
+
+                                <option>
+                                    Eastern
+                                </option>
+
+                                <option>
+                                    Central
+                                </option>
+
+                                <option>
+                                    Western
+                                </option>
+
+                                <option>
+                                    Volta
+                                </option>
+
+                                <option>
+                                    Northern
+                                </option>
+
+                                <option>
+                                    Upper East
+                                </option>
+
+                                <option>
+                                    Upper West
+                                </option>
+
+                                <option>
+                                    Bono
+                                </option>
+
+                                <option>
+                                    Bono East
+                                </option>
+
+                                <option>
+                                    Ahafo
+                                </option>
+
+                                <option>
+                                    Oti
+                                </option>
+
+                                <option>
+                                    Savannah
+                                </option>
+
+                                <option>
+                                    North East
+                                </option>
+
+                                <option>
+                                    Western North
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>
+                                CITY / TOWN
+                            </label>
+
+                            <input
+                                type="text"
+                                id="city"
+                                placeholder="Accra">
+
+                        </div>
+
+
+                        <div class="field full">
+
+                            <label>
+                                DELIVERY ADDRESS
+                            </label>
+
+                            <input
+                                type="text"
+                                id="address"
+                                placeholder="House number, street, area">
+
+                        </div>
+
+
+                        <div class="field full">
+
+                            <label>
+                                DELIVERY NOTES
+                            </label>
+
+                            <textarea
+                                id="notes"
+                                placeholder="Optional delivery instructions">
+                            </textarea>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- PAYMENT -->
+
+                <section class="card">
+
+                    <div class="title">
+
+                        <div class="number">
+                            2
+                        </div>
+
+                        <h2>
+                            Payment
+                        </h2>
+
+                    </div>
+
+
+                    <div class="payment">
+
+                        <div class="payment-icon">
+                            📱
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Mobile Money
+                            </strong>
+
+                            <span>
+                                Pay securely through Paystack
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+            <!-- RIGHT -->
+
+            <aside class="summary">
+
+                <h2>
+                    Your Order
+                </h2>
+
+
+                <div
+                    class="items"
+                    id="summary-items">
+                </div>
+
+
+                <div class="total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong id="checkout-total">
+                        GH₵ 0
+                    </strong>
+
+                </div>
+
+
+                <button
+                    class="pay-button"
+                    id="pay-button"
+                    onclick="payWithPaystack()">
+
+                    Pay with Mobile Money →
+
+                </button>
+
+
+                <div class="secure">
+                    🔒 Secure payment powered by Paystack
+                </div>
+
+            </aside>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script>
+
+/*
+=====================================================
+PAYSTACK PUBLIC KEY
+=====================================================
+*/
+
+const PAYSTACK_PUBLIC_KEY =
+"pk_test_b01341fb1973365e11aa334d70136ab0ede380cb";
+
+
+/*
+=====================================================
+LOAD CART
+=====================================================
+*/
+
+let cart =
+JSON.parse(
+    localStorage.getItem("forgeCart")
+) || [];
+
+
+/*
+=====================================================
+DISPLAY CART
+=====================================================
+*/
+
+function displayCart() {
+
+    const grid =
+        document.getElementById(
+            "checkout-grid"
+        );
+
+    const empty =
+        document.getElementById(
+            "empty-cart"
+        );
+
+
+    if (cart.length === 0) {
+
+        grid.style.display = "none";
+
+        empty.style.display = "block";
+
+        return;
+
+    }
+
+
+    grid.style.display = "grid";
+
+    empty.style.display = "none";
+
+
+    const items =
+        document.getElementById(
+            "summary-items"
+        );
+
+
+    items.innerHTML = "";
+
+
+    let total = 0;
+
+
+    cart.forEach(product => {
+
+        const quantity =
+            product.quantity || 1;
+
+
+        const price =
+            Number(product.price);
+
+
+        const itemTotal =
+            price * quantity;
+
+
+        total += itemTotal;
+
+
+        const item =
+            document.createElement(
+                "div"
+            );
+
+
+        item.className = "item";
+
+
+        item.innerHTML = `
+
+            <span class="item-name">
+
+                ${product.name}
+                × ${quantity}
+
+            </span>
+
+            <span class="item-price">
+
+                GH₵ ${itemTotal}
+
+            </span>
+
+        `;
+
+
+        items.appendChild(item);
+
+    });
+
+
+    document.getElementById(
+        "checkout-total"
+    ).textContent =
+        "GH₵ " + total;
+
+}
+
+
+/*
+=====================================================
+GET TOTAL
+=====================================================
+*/
+
+function getTotal() {
+
+    return cart.reduce(
+        (total, product) => {
+
+            return total +
+                Number(product.price) *
+                (product.quantity || 1);
+
+        },
+        0
+    );
+
+}
+
+
+/*
+=====================================================
+VALIDATE
+=====================================================
+*/
+
+function validateForm() {
+
+    const fields = [
+
+        ["full-name", "Please enter your full name."],
+
+        ["email", "Please enter your email."],
+
+        ["phone", "Please enter your phone number."],
+
+        ["region", "Please select your region."],
+
+        ["city", "Please enter your city/town."],
+
+        ["address", "Please enter your delivery address."]
+
+    ];
+
+
+    for (const field of fields) {
+
+        const value =
+            document.getElementById(
+                field[0]
+            ).value.trim();
+
+
+        if (!value) {
+
+            alert(field[1]);
+
+            document.getElementById(
+                field[0]
+            ).focus();
+
+            return false;
+
+        }
+
+    }
+
+
+    return true;
+
+}
+
+
+/*
+=====================================================
+PAY WITH PAYSTACK
+=====================================================
+*/
+
+function payWithPaystack() {
+
+
+    if (cart.length === 0) {
+
+        alert(
+            "Your cart is empty."
+        );
+
+        return;
+
+    }
+
+
+    if (!validateForm()) {
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "pay-button"
+        );
+
+
+    const email =
+        document.getElementById(
+            "email"
+        ).value.trim();
+
+
+    const name =
+        document.getElementById(
+            "full-name"
+        ).value.trim();
+
+
+    const phone =
+        document.getElementById(
+            "phone"
+        ).value.trim();
+
+
+    const total =
+        getTotal();
+
+
+    /*
+    GH₵ → pesewas
+    */
+
+    const amount =
+        Math.round(
+            total * 100
+        );
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "Opening Paystack...";
+
+
+    try {
+
+        const popup =
+            new PaystackPop();
+
+
+        popup.newTransaction({
+
+            key:
+                PAYSTACK_PUBLIC_KEY,
+
+            email:
+                email,
+
+            amount:
+                amount,
+
+            currency:
+                "GHS",
+
+            firstName:
+                name.split(" ")[0],
+
+            lastName:
+                name
+                    .split(" ")
+                    .slice(1)
+                    .join(" "),
+
+            phone:
+                phone,
+
+            channels:
+                ["mobile_money"],
+
+
+            metadata: {
+
+                custom_fields: [
+
+                    {
+                        display_name:
+                            "Customer Name",
+
+                        variable_name:
+                            "customer_name",
+
+                        value:
+                            name
+                    },
+
+                    {
+                        display_name:
+                            "Phone Number",
+
+                        variable_name:
+                            "phone_number",
+
+                        value:
+                            phone
+                    },
+
+                    {
+                        display_name:
+                            "Region",
+
+                        variable_name:
+                            "region",
+
+                        value:
+                            document
+                                .getElementById(
+                                    "region"
+                                )
+                                .value
+                    },
+
+                    {
+                        display_name:
+                            "City",
+
+                        variable_name:
+                            "city",
+
+                        value:
+                            document
+                                .getElementById(
+                                    "city"
+                                )
+                                .value
+                    },
+
+                    {
+                        display_name:
+                            "Delivery Address",
+
+                        variable_name:
+                            "delivery_address",
+
+                        value:
+                            document
+                                .getElementById(
+                                    "address"
+                                )
+                                .value
+                    }
+
+                ]
+
+            },
+
+
+            /*
+            SUCCESS
+            */
+
+            onSuccess:
+                function(transaction) {
+
+                    console.log(
+                        "Payment successful:",
+                        transaction
+                    );
+
+
+                    alert(
+                        "Payment successful!\n\nReference: " +
+                        transaction.reference
+                    );
+
+
+                    /*
+                    Clear cart
+                    */
+
+                    localStorage.removeItem(
+                        "forgeCart"
+                    );
+
+
+                    /*
+                    Return home
+                    */
+
+                    window.location.href =
+                        "index.html";
+
+                },
+
+
+            /*
+            CANCEL
+            */
+
+            onCancel:
+                function() {
+
+                    button.disabled =
+                        false;
+
+                    button.textContent =
+                        "Pay with Mobile Money →";
+
+
+                    alert(
+                        "Payment cancelled."
+                    );
+
+                },
+
+
+            /*
+            ERROR
+            */
+
+            onError:
+                function(error) {
+
+                    console.error(
+                        error
+                    );
+
+
+                    button.disabled =
+                        false;
+
+                    button.textContent =
+                        "Pay with Mobile Money →";
+
+
+                    alert(
+                        "Payment error: " +
+                        (
+                            error.message ||
+                            "Please try again."
+                        )
+                    );
+
+                }
+
+        });
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+
+        button.disabled =
+            false;
+
+        button.textContent =
+            "Pay with Mobile Money →";
+
+
+        alert(
+            "Could not open Paystack. Check your internet connection and public key."
+        );
+
+    }
+
+}
+
+
+/*
+=====================================================
+START
+=====================================================
+*/
+
+displayCart();
+
+</script>
+
+</body>
+</html>
