@@ -1,1025 +1,837 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
-```
-<meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>Forge Store | Checkout</title>
-
-
-<style>
-
-    * {
-        box-sizing: border-box;
-    }
-
-
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f5f5f5;
-        color: #222;
-    }
-
-
-    header {
-        background: #111;
-        color: white;
-        padding: 20px;
-
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-
-    header h1 {
-        margin: 0;
-    }
-
-
-    nav a {
-        color: white;
-        text-decoration: none;
-        margin-left: 18px;
-    }
-
-
-    .container {
-        max-width: 1000px;
-        margin: 35px auto;
-        padding: 20px;
-    }
-
-
-    .title {
-        margin-bottom: 25px;
-    }
-
-
-    .checkout {
-        display: grid;
-        grid-template-columns: 1.2fr 1fr;
-        gap: 25px;
-    }
-
-
-    .box {
-        background: white;
-        padding: 25px;
-        border-radius: 12px;
-
-        box-shadow:
-            0 4px 15px rgba(0, 0, 0, 0.08);
-    }
-
-
-    .box h2 {
-        margin-top: 0;
-        margin-bottom: 20px;
-    }
-
-
-    label {
-        display: block;
-        font-weight: bold;
-        margin-bottom: 7px;
-    }
-
-
-    input,
-    select {
-        width: 100%;
-
-        padding: 13px;
-
-        margin-bottom: 18px;
-
-        border: 1px solid #ccc;
-
-        border-radius: 7px;
-
-        font-size: 15px;
-
-        background: white;
-    }
-
-
-    select {
-        cursor: pointer;
-    }
-
-
-    .order-item {
-        padding: 12px 0;
-
-        border-bottom: 1px solid #eee;
-
-        display: flex;
-
-        justify-content: space-between;
-
-        gap: 10px;
-    }
-
-
-    .order-item-name {
-        font-weight: bold;
-    }
-
-
-    .order-item-price {
-        font-weight: bold;
-    }
-
-
-    .summary-row {
-        display: flex;
-
-        justify-content: space-between;
-
-        margin-top: 15px;
-    }
-
-
-    .delivery-row {
-        margin-top: 15px;
-
-        padding-top: 15px;
-
-        border-top: 1px solid #ddd;
-    }
-
-
-    .grand-total {
-        display: flex;
-
-        justify-content: space-between;
-
-        margin-top: 20px;
-
-        padding-top: 20px;
-
-        border-top: 2px solid #222;
-
-        font-size: 23px;
-
-        font-weight: bold;
-    }
-
-
-    #deliveryFee {
-        font-weight: bold;
-    }
-
-
-    .pay-button {
-        width: 100%;
-
-        padding: 16px;
-
-        margin-top: 25px;
-
-        border: none;
-
-        border-radius: 8px;
-
-        background: #00a859;
-
-        color: white;
-
-        font-size: 17px;
-
-        font-weight: bold;
-
-        cursor: pointer;
-    }
-
-
-    .pay-button:hover {
-        background: #008f4b;
-    }
-
-
-    .pay-button:disabled {
-        background: #999;
-
-        cursor: not-allowed;
-    }
-
-
-    #message {
-        margin-top: 15px;
-
-        padding: 12px;
-
-        border-radius: 7px;
-
-        display: none;
-    }
-
-
-    .success {
-        background: #dff7e8;
-
-        color: #08752c;
-
-        display: block !important;
-    }
-
-
-    .error {
-        background: #ffe1e1;
-
-        color: #a40000;
-
-        display: block !important;
-    }
-
-
-    .empty {
-        text-align: center;
-
-        padding: 40px;
-    }
-
-
-    .empty a {
-        display: inline-block;
-
-        margin-top: 15px;
-
-        padding: 12px 20px;
-
-        background: #111;
-
-        color: white;
-
-        text-decoration: none;
-
-        border-radius: 7px;
-    }
-
-
-    footer {
-        margin-top: 50px;
-
-        padding: 25px;
-
-        background: #111;
-
-        color: white;
-
-        text-align: center;
-    }
-
-
-    @media (max-width: 750px) {
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Forge Store | Checkout</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
 
         header {
-            flex-direction: column;
-
-            gap: 15px;
+            background: #111;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
+        header h1 {
+            margin: 0;
+        }
 
         nav a {
-            margin: 0 7px;
+            color: white;
+            text-decoration: none;
+            margin-left: 18px;
         }
 
+        .container {
+            max-width: 1000px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        .title {
+            margin-bottom: 25px;
+        }
 
         .checkout {
-            grid-template-columns: 1fr;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 25px;
         }
 
-    }
+        .box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
 
-</style>
-```
+        .box h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
 
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 18px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+            background: white;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        .order-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .order-item-name {
+            font-weight: bold;
+        }
+
+        .order-item-price {
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .delivery-row {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+        }
+
+        .grand-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #222;
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .pay-button {
+            width: 100%;
+            padding: 16px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 8px;
+            background: #00a859;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .pay-button:hover {
+            background: #008f4b;
+        }
+
+        .pay-button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        #message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 7px;
+            display: none;
+        }
+
+        .success {
+            background: #dff7e8;
+            color: #08752c;
+            display: block !important;
+        }
+
+        .error {
+            background: #ffe1e1;
+            color: #a40000;
+            display: block !important;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .empty a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 20px;
+            background: #111;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 25px;
+            background: #111;
+            color: white;
+            text-align: center;
+        }
+
+        @media (max-width: 750px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 0 7px;
+            }
+
+            .checkout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 <header>
+    <h1>Forge Store</h1>
 
-```
-<h1>Forge Store</h1>
-
-<nav>
-
-    <a href="index.html">
-        Home
-    </a>
-
-    <a href="products.html">
-        Products
-    </a>
-
-    <a href="cart.html">
-        Cart 🛒
-    </a>
-
-</nav>
-```
-
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="cart.html">Cart 🛒</a>
+    </nav>
 </header>
 
 <main class="container">
 
-```
-<h1 class="title">
-    Checkout
-</h1>
+    <h1 class="title">Checkout</h1>
 
+    <div id="checkout" class="checkout">
 
-<div
-    id="checkout"
-    class="checkout"
->
+        <!-- CUSTOMER DETAILS -->
+        <div class="box">
 
+            <h2>Customer & Delivery Details</h2>
 
-    <!-- CUSTOMER DETAILS -->
+            <form id="checkoutForm">
 
-    <div class="box">
+                <label for="name">Full Name</label>
 
-        <h2>
-            Customer & Delivery Details
-        </h2>
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter your full name"
+                    required
+                >
 
+                <label for="email">Email</label>
 
-        <form id="checkoutForm">
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="you@example.com"
+                    required
+                >
 
+                <label for="phone">Phone Number</label>
 
-            <label>
-                Full Name
-            </label>
+                <input
+                    type="tel"
+                    id="phone"
+                    placeholder="024 XXX XXXX"
+                    required
+                >
 
-            <input
-                type="text"
-                id="name"
-                placeholder="Enter your full name"
-                required
-            >
+                <label for="address">Delivery Address</label>
 
+                <input
+                    type="text"
+                    id="address"
+                    placeholder="House number, street, area"
+                    required
+                >
 
-            <label>
-                Email
-            </label>
+                <label for="deliveryLocation">
+                    Delivery Location
+                </label>
 
-            <input
-                type="email"
-                id="email"
-                placeholder="you@example.com"
-                required
-            >
+                <select id="deliveryLocation" required>
 
+                    <option value="">
+                        Select delivery location
+                    </option>
 
-            <label>
-                Phone Number
-            </label>
+                    <option value="0">
+                        Takoradi — FREE
+                    </option>
 
-            <input
-                type="tel"
-                id="phone"
-                placeholder="024 XXX XXXX"
-                required
-            >
+                    <option value="50">
+                        Accra — GH₵50
+                    </option>
 
+                    <option value="40">
+                        Tema — GH₵40
+                    </option>
 
-            <label>
-                Delivery Address
-            </label>
+                    <option value="100">
+                        Other locations — GH₵100
+                    </option>
 
-            <input
-                type="text"
-                id="address"
-                placeholder="House number, street, area"
-                required
-            >
+                </select>
 
+                <button
+                    type="submit"
+                    id="payButton"
+                    class="pay-button"
+                >
+                    Pay with Paystack
+                </button>
 
-            <label>
-                Delivery Location
-            </label>
+            </form>
 
-            <select
-                id="deliveryLocation"
-                required
-            >
-
-                <option value="">
-                    Select delivery location
-                </option>
-
-                <option value="0">
-                    Takoradi — FREE
-                </option>
-
-                <option value="50">
-                    Accra — GH₵50
-                </option>
-
-                <option value="40">
-                    Tema — GH₵40
-                </option>
-
-                <option value="100">
-                    Other locations — GH₵100
-                </option>
-
-            </select>
-
-
-            <button
-                type="submit"
-                id="payButton"
-                class="pay-button"
-            >
-                Pay with Paystack
-            </button>
-
-
-        </form>
-
-
-        <div id="message"></div>
-
-    </div>
-
-
-
-    <!-- ORDER SUMMARY -->
-
-    <div class="box">
-
-        <h2>
-            Your Order
-        </h2>
-
-
-        <div id="cartItems"></div>
-
-
-        <div class="summary-row">
-
-            <span>
-                Products
-            </span>
-
-            <strong>
-                GH₵<span id="productTotal">
-                    0.00
-                </span>
-            </strong>
+            <div id="message"></div>
 
         </div>
 
 
-        <div class="summary-row delivery-row">
+        <!-- ORDER SUMMARY -->
+        <div class="box">
 
-            <span>
-                Delivery
-            </span>
+            <h2>Your Order</h2>
 
-            <strong>
-                <span id="deliveryFee">
-                    FREE
+            <div id="cartItems"></div>
+
+            <div class="summary-row">
+
+                <span>Products</span>
+
+                <strong>
+                    GH₵<span id="productTotal">0.00</span>
+                </strong>
+
+            </div>
+
+            <div class="summary-row delivery-row">
+
+                <span>Delivery</span>
+
+                <strong id="deliveryFee">
+                    Select location
+                </strong>
+
+            </div>
+
+            <div class="grand-total">
+
+                <span>Total</span>
+
+                <span>
+                    GH₵<span id="total">0.00</span>
                 </span>
-            </strong>
 
-        </div>
-
-
-        <div class="grand-total">
-
-            <span>
-                Total
-            </span>
-
-            <span>
-                GH₵<span id="total">
-                    0.00
-                </span>
-            </span>
+            </div>
 
         </div>
 
     </div>
-
-
-</div>
-```
 
 </main>
 
 <footer>
-
-```
-<p>
-    © 2026 Forge Store. All rights reserved.
-</p>
-```
-
+    <p>© 2026 Forge Store. All rights reserved.</p>
 </footer>
+
 
 <script>
 
+    // ==========================================
+    // CLOUDFLARE WORKER
+    // ==========================================
 
-// ==========================================
-// GET CART
-// ==========================================
-
-const cart =
-    JSON.parse(
-        localStorage.getItem("cart")
-    ) || [];
+    const PAYMENT_API =
+        "https://forge-store-payment.rampagewwe2.workers.dev";
 
 
-// ==========================================
-// ELEMENTS
-// ==========================================
+    // ==========================================
+    // GET CART
+    // ==========================================
 
-const cartItems =
-    document.getElementById("cartItems");
-
-const productTotalElement =
-    document.getElementById("productTotal");
-
-const deliveryFeeElement =
-    document.getElementById("deliveryFee");
-
-const totalElement =
-    document.getElementById("total");
-
-const deliveryLocation =
-    document.getElementById("deliveryLocation");
-
-const form =
-    document.getElementById("checkoutForm");
-
-const payButton =
-    document.getElementById("payButton");
-
-const message =
-    document.getElementById("message");
+    const cart =
+        JSON.parse(
+            localStorage.getItem("cart")
+        ) || [];
 
 
-// ==========================================
-// QUANTITY
-// ==========================================
+    // ==========================================
+    // ELEMENTS
+    // ==========================================
 
-function getQuantity(item) {
+    const cartItems =
+        document.getElementById("cartItems");
 
-    return Number(item.quantity) || 1;
+    const productTotalElement =
+        document.getElementById("productTotal");
 
-}
+    const deliveryFeeElement =
+        document.getElementById("deliveryFee");
 
+    const totalElement =
+        document.getElementById("total");
 
-// ==========================================
-// PRODUCT TOTAL
-// ==========================================
+    const deliveryLocation =
+        document.getElementById("deliveryLocation");
 
-function calculateProductTotal() {
+    const form =
+        document.getElementById("checkoutForm");
 
-    return cart.reduce(
-        function(total, item) {
+    const payButton =
+        document.getElementById("payButton");
 
-            return total +
-                Number(item.price) *
-                getQuantity(item);
-
-        },
-        0
-    );
-
-}
+    const message =
+        document.getElementById("message");
 
 
-// ==========================================
-// DELIVERY FEE
-// ==========================================
+    // ==========================================
+    // QUANTITY
+    // ==========================================
 
-function getDeliveryFee() {
+    function getQuantity(item) {
 
-    const value =
-        deliveryLocation.value;
-
-
-    if (value === "") {
-
-        return 0;
+        return Number(item.quantity) || 1;
 
     }
 
 
-    return Number(value);
+    // ==========================================
+    // PRODUCT TOTAL
+    // ==========================================
 
-}
+    function calculateProductTotal() {
 
+        return cart.reduce(
+            function(total, item) {
 
-// ==========================================
-// FINAL TOTAL
-// ==========================================
+                return total +
+                    Number(item.price) *
+                    getQuantity(item);
 
-function calculateTotal() {
-
-    return (
-        calculateProductTotal() +
-        getDeliveryFee()
-    );
-
-}
-
-
-// ==========================================
-// UPDATE TOTALS
-// ==========================================
-
-function updateTotals() {
-
-    const productTotal =
-        calculateProductTotal();
-
-    const deliveryFee =
-        getDeliveryFee();
-
-    const finalTotal =
-        productTotal + deliveryFee;
-
-
-    productTotalElement.textContent =
-        productTotal.toFixed(2);
-
-
-    if (deliveryLocation.value === "") {
-
-        deliveryFeeElement.textContent =
-            "Select location";
-
-    }
-
-    else if (deliveryFee === 0) {
-
-        deliveryFeeElement.textContent =
-            "FREE";
-
-    }
-
-    else {
-
-        deliveryFeeElement.textContent =
-            "GH₵" + deliveryFee.toFixed(2);
+            },
+            0
+        );
 
     }
 
 
-    totalElement.textContent =
-        finalTotal.toFixed(2);
+    // ==========================================
+    // DELIVERY FEE
+    // ==========================================
 
-}
+    function getDeliveryFee() {
 
-
-// ==========================================
-// DISPLAY CART
-// ==========================================
-
-function displayCart() {
-
-    if (cart.length === 0) {
-
-        cartItems.innerHTML = `
-
-            <div class="empty">
-
-                <h3>
-                    Your cart is empty
-                </h3>
-
-                <a href="products.html">
-                    Shop Products
-                </a>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    cartItems.innerHTML = "";
-
-
-    cart.forEach(function(item) {
-
-        const quantity =
-            getQuantity(item);
-
-        const itemTotal =
-            Number(item.price) *
-            quantity;
-
-
-        cartItems.innerHTML += `
-
-            <div class="order-item">
-
-                <div>
-
-                    <div class="order-item-name">
-                        ${item.name}
-                    </div>
-
-                    <small>
-                        ${quantity} ×
-                        GH₵${Number(item.price).toFixed(2)}
-                    </small>
-
-                </div>
-
-                <div class="order-item-price">
-
-                    GH₵${itemTotal.toFixed(2)}
-
-                </div>
-
-            </div>
-
-        `;
-
-    });
-
-}
-
-
-// ==========================================
-// DELIVERY LOCATION CHANGE
-// ==========================================
-
-deliveryLocation.addEventListener(
-    "change",
-    updateTotals
-);
-
-
-// ==========================================
-// PAYMENT
-// ==========================================
-
-form.addEventListener(
-    "submit",
-    async function(event) {
-
-        event.preventDefault();
-
-
-        if (cart.length === 0) {
-
-            message.textContent =
-                "Your cart is empty.";
-
-            message.className =
-                "error";
-
-            return;
-
+        if (deliveryLocation.value === "") {
+            return 0;
         }
 
+        return Number(
+            deliveryLocation.value
+        );
 
-        if (
-            deliveryLocation.value === ""
-        ) {
-
-            message.textContent =
-                "Please select a delivery location.";
-
-            message.className =
-                "error";
-
-            return;
-
-        }
+    }
 
 
-        const name =
-            document
-                .getElementById("name")
-                .value
-                .trim();
+    // ==========================================
+    // UPDATE TOTALS
+    // ==========================================
 
-
-        const email =
-            document
-                .getElementById("email")
-                .value
-                .trim();
-
-
-        const phone =
-            document
-                .getElementById("phone")
-                .value
-                .trim();
-
-
-        const address =
-            document
-                .getElementById("address")
-                .value
-                .trim();
-
-
-        const location =
-            deliveryLocation
-                .options[
-                    deliveryLocation.selectedIndex
-                ]
-                .text;
-
+    function updateTotals() {
 
         const productTotal =
             calculateProductTotal();
 
-
         const deliveryFee =
             getDeliveryFee();
-
 
         const finalTotal =
             productTotal + deliveryFee;
 
 
-        payButton.disabled =
-            true;
+        productTotalElement.textContent =
+            productTotal.toFixed(2);
 
 
-        payButton.textContent =
-            "Connecting to Paystack...";
+        if (deliveryLocation.value === "") {
+
+            deliveryFeeElement.textContent =
+                "Select location";
+
+        }
+
+        else if (deliveryFee === 0) {
+
+            deliveryFeeElement.textContent =
+                "FREE";
+
+        }
+
+        else {
+
+            deliveryFeeElement.textContent =
+                "GH₵" +
+                deliveryFee.toFixed(2);
+
+        }
 
 
-        message.style.display =
-            "none";
+        totalElement.textContent =
+            finalTotal.toFixed(2);
+
+    }
 
 
-        try {
+    // ==========================================
+    // DISPLAY CART
+    // ==========================================
 
-            const response =
-                await fetch(
-                    "/api/paystack/initialize",
-                    {
+    function displayCart() {
 
-                        method: "POST",
+        if (cart.length === 0) {
 
-                        headers: {
-                            "Content-Type":
-                                "application/json"
-                        },
+            cartItems.innerHTML = `
 
-                        body: JSON.stringify({
+                <div class="empty">
 
-                            email: email,
+                    <h3>
+                        Your cart is empty
+                    </h3>
 
-                            amount: finalTotal,
+                    <a href="products.html">
+                        Shop Products
+                    </a>
 
-                            customerName: name,
+                </div>
 
-                            phone: phone,
+            `;
 
-                            address: address,
+            payButton.disabled = true;
 
-                            deliveryLocation:
-                                location,
+            return;
 
-                            deliveryFee:
-                                deliveryFee,
-
-                            cart: cart
-
-                        })
-
-                    }
-                );
+        }
 
 
-            const data =
-                await response.json();
+        cartItems.innerHTML = "";
 
 
-            console.log(
-                "SERVER RESPONSE:",
-                data
-            );
+        cart.forEach(function(item) {
+
+            const quantity =
+                getQuantity(item);
+
+            const itemTotal =
+                Number(item.price) *
+                quantity;
 
 
-            if (
-                !data.status ||
-                !data.authorization_url
-            ) {
+            cartItems.innerHTML += `
 
-                throw new Error(
+                <div class="order-item">
 
-                    data.message ||
-                    "Paystack did not return a payment URL."
+                    <div>
 
-                );
+                        <div class="order-item-name">
+                            ${item.name}
+                        </div>
+
+                        <small>
+                            ${quantity} ×
+                            GH₵${Number(item.price).toFixed(2)}
+                        </small>
+
+                    </div>
+
+                    <div class="order-item-price">
+                        GH₵${itemTotal.toFixed(2)}
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
+
+    // ==========================================
+    // DELIVERY CHANGE
+    // ==========================================
+
+    deliveryLocation.addEventListener(
+        "change",
+        updateTotals
+    );
+
+
+    // ==========================================
+    // PAYMENT
+    // ==========================================
+
+    form.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            if (cart.length === 0) {
+
+                message.textContent =
+                    "Your cart is empty.";
+
+                message.className =
+                    "error";
+
+                return;
 
             }
 
 
-            // Save order information temporarily
+            if (deliveryLocation.value === "") {
 
-            localStorage.setItem(
-                "pendingOrder",
-                JSON.stringify({
+                message.textContent =
+                    "Please select a delivery location.";
 
-                    name: name,
+                message.className =
+                    "error";
 
-                    email: email,
+                return;
 
-                    phone: phone,
-
-                    address: address,
-
-                    deliveryLocation:
-                        location,
-
-                    deliveryFee:
-                        deliveryFee,
-
-                    productTotal:
-                        productTotal,
-
-                    total:
-                        finalTotal,
-
-                    cart:
-                        cart,
-
-                    reference:
-                        data.reference
-
-                })
-            );
+            }
 
 
-            // Go to Paystack
-
-            window.location.href =
-                data.authorization_url;
-
-        }
-
-
-        catch (error) {
-
-            console.error(
-                "PAYMENT ERROR:",
-                error
-            );
+            const name =
+                document
+                    .getElementById("name")
+                    .value
+                    .trim();
 
 
-            message.textContent =
-                error.message ||
-                "Unable to process payment.";
+            const email =
+                document
+                    .getElementById("email")
+                    .value
+                    .trim();
 
 
-            message.className =
-                "error";
+            const phone =
+                document
+                    .getElementById("phone")
+                    .value
+                    .trim();
 
 
-            payButton.disabled =
-                false;
+            const address =
+                document
+                    .getElementById("address")
+                    .value
+                    .trim();
 
+
+            const location =
+                deliveryLocation
+                    .options[
+                        deliveryLocation.selectedIndex
+                    ]
+                    .text;
+
+
+            const productTotal =
+                calculateProductTotal();
+
+
+            const deliveryFee =
+                getDeliveryFee();
+
+
+            const finalTotal =
+                productTotal + deliveryFee;
+
+
+            payButton.disabled = true;
 
             payButton.textContent =
-                "Pay with Paystack";
+                "Connecting to Paystack...";
+
+
+            message.style.display =
+                "none";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        PAYMENT_API,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                email: email,
+
+                                amount: finalTotal,
+
+                                customerName: name,
+
+                                phone: phone,
+
+                                address: address,
+
+                                deliveryLocation:
+                                    location,
+
+                                deliveryFee:
+                                    deliveryFee,
+
+                                cart: cart
+
+                            })
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "PAYSTACK RESPONSE:",
+                    data
+                );
+
+
+                if (
+                    !data.status ||
+                    !data.data ||
+                    !data.data.authorization_url
+                ) {
+
+                    throw new Error(
+                        data.message ||
+                        "Unable to create Paystack payment."
+                    );
+
+                }
+
+
+                // ==========================================
+                // SAVE ORDER
+                // ==========================================
+
+                localStorage.setItem(
+                    "pendingOrder",
+                    JSON.stringify({
+
+                        name: name,
+
+                        email: email,
+
+                        phone: phone,
+
+                        address: address,
+
+                        deliveryLocation:
+                            location,
+
+                        deliveryFee:
+                            deliveryFee,
+
+                        productTotal:
+                            productTotal,
+
+                        total:
+                            finalTotal,
+
+                        cart:
+                            cart,
+
+                        reference:
+                            data.data.reference
+
+                    })
+                );
+
+
+                // ==========================================
+                // OPEN PAYSTACK
+                // ==========================================
+
+                window.location.href =
+                    data.data.authorization_url;
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "PAYMENT ERROR:",
+                    error
+                );
+
+
+                message.textContent =
+                    error.message ||
+                    "Unable to process payment.";
+
+                message.className =
+                    "error";
+
+
+                payButton.disabled =
+                    false;
+
+
+                payButton.textContent =
+                    "Pay with Paystack";
+
+            }
 
         }
-
-    }
-);
+    );
 
 
-// ==========================================
-// START
-// ==========================================
+    // ==========================================
+    // START
+    // ==========================================
 
-displayCart();
+    displayCart();
 
-updateTotals();
+    updateTotals();
 
 </script>
 
 </body>
-
 </html>
