@@ -1,226 +1,155 @@
-const products = [
-    {
-        id: 1,
-        name: "Classic Sneakers",
-        price: 250,
-        category: "Shoes",
-        description: "Comfortable and stylish sneakers for everyday use.",
-        image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-        id: 2,
-        name: "Stylish Wristwatch",
-        price: 180,
-        category: "Accessories",
-        description: "A stylish wristwatch for everyday wear.",
-        image: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-        id: 3,
-        name: "Premium T-Shirt",
-        price: 120,
-        category: "Clothing",
-        description: "A comfortable premium T-shirt.",
-        image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-        id: 4,
-        name: "Leather Backpack",
-        price: 220,
-        category: "Bags",
-        description: "A stylish backpack for your everyday essentials.",
-        image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-        id: 5,
-        name: "Wireless Headphones",
-        price: 350,
-        category: "Electronics",
-        description: "Modern wireless headphones.",
-        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-        id: 6,
-        name: "Classic Sunglasses",
-        price: 150,
-        category: "Accessories",
-        description: "Classic sunglasses with a stylish design.",
-        image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=800&q=80"
-    }
-];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-function displayProducts() {
-    const container = document.getElementById("products");
+    <title>Forge Store | Products</title>
 
-    if (!container) return;
+    <link rel="stylesheet" href="css/style.css">
 
-    container.innerHTML = "";
+    <style>
+        .products-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
 
-    products.forEach(function(product) {
+        .products-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-        const card = document.createElement("div");
-        card.className = "product-card";
+        #products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
 
-        card.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
+        .product-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #ebeae5;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
 
-            <div class="product-info">
-                <h3>${product.name}</h3>
-                <p>${product.category}</p>
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
 
-                <div class="price">
-                    GH₵${product.price.toFixed(2)}
-                </div>
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
 
-                <a class="view-product"
-                   href="product.html?id=${product.id}">
-                    View Product
-                </a>
+        .product-info {
+            padding: 20px;
+        }
 
-                <button
-                    class="add-cart"
-                    onclick="addToCart(${product.id})">
-                    Add to Cart
-                </button>
-            </div>
-        `;
+        .product-info h3 {
+            margin: 0 0 8px;
+            font-size: 20px;
+        }
 
-        container.appendChild(card);
-    });
-}
+        .product-info p {
+            color: #777;
+            margin: 5px 0 12px;
+        }
 
-function addToCart(productId, quantity = 1) {
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
 
-    const product = products.find(function(item) {
-        return item.id === productId;
-    });
+        .view-product,
+        .add-cart {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 10px;
+        }
 
-    if (!product) return;
+        .view-product {
+            background: #111;
+            color: white;
+        }
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        .add-cart {
+            background: #ff5a1f;
+            color: white;
+            border: none;
+            font-size: 15px;
+        }
 
-    const existing = cart.find(function(item) {
-        return item.id === productId;
-    });
+        .view-product:hover {
+            background: #333;
+        }
 
-    if (existing) {
-        existing.quantity += quantity;
-    } else {
-        cart.push({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            category: product.category,
-            image: product.image,
-            quantity: quantity
-        });
-    }
+        .add-cart:hover {
+            background: #e64e17;
+        }
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+        @media (max-width: 900px) {
+            #products {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
 
-    alert(product.name + " added to cart!");
-}
+        @media (max-width: 600px) {
+            #products {
+                grid-template-columns: 1fr;
+            }
 
-function displaySingleProduct() {
+            .product-card img {
+                height: 280px;
+            }
+        }
+    </style>
+</head>
 
-    const container = document.getElementById("product");
+<body>
 
-    if (!container) return;
+<header>
+    <h1>Forge Store</h1>
 
-    const params = new URLSearchParams(window.location.search);
-    const id = Number(params.get("id"));
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="cart.html">Cart 🛒</a>
+    </nav>
+</header>
 
-    const product = products.find(function(item) {
-        return item.id === id;
-    });
 
-    if (!product) {
-        container.innerHTML = `
-            <div class="not-found">
-                <h2>Product Not Found</h2>
-                <a href="products.html">Back to Products</a>
-            </div>
-        `;
-        return;
-    }
+<main class="products-container">
 
-    container.innerHTML = `
-        <div class="product">
+    <h2 class="products-title">
+        Our Products
+    </h2>
 
-            <div class="product-image">
-                <img src="${product.image}" alt="${product.name}">
-            </div>
+    <!-- PRODUCTS WILL APPEAR HERE -->
+    <div id="products"></div>
 
-            <div class="product-info">
+</main>
 
-                <span class="category">
-                    ${product.category}
-                </span>
 
-                <h2>${product.name}</h2>
+<footer>
+    <p>© 2026 Forge Store. All rights reserved.</p>
+</footer>
 
-                <p class="description">
-                    ${product.description}
-                </p>
 
-                <div class="price">
-                    GH₵${product.price.toFixed(2)}
-                </div>
+<!-- IMPORTANT -->
+<script src="js/products.js"></script>
 
-                <div class="quantity">
-
-                    <button onclick="changeQuantity(-1)">
-                        −
-                    </button>
-
-                    <span id="quantity">1</span>
-
-                    <button onclick="changeQuantity(1)">
-                        +
-                    </button>
-
-                </div>
-
-                <button
-                    class="add-cart"
-                    onclick="addSingleProduct(${product.id})">
-                    Add to Cart 🛒
-                </button>
-
-            </div>
-
-        </div>
-    `;
-}
-
-let quantity = 1;
-
-function changeQuantity(amount) {
-
-    quantity += amount;
-
-    if (quantity < 1) {
-        quantity = 1;
-    }
-
-    const element = document.getElementById("quantity");
-
-    if (element) {
-        element.textContent = quantity;
-    }
-}
-
-function addSingleProduct(productId) {
-
-    addToCart(productId, quantity);
-
-    quantity = 1;
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-
-    displayProducts();
-
-    displaySingleProduct();
-
-});
+</body>
+</html>
